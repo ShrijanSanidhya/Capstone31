@@ -1,72 +1,104 @@
-
+/* ===== Modern Dark Theme ===== */
 *,
 ::before,
-::after{
+::after {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
 
-label{
-  font-size: 20px;
-}
-
 html,
-body{
+body {
   height: 100%;
   width: 100%;
-}
-
-body{
+  font-family: "Poppins", sans-serif;
+  background-color: #0f0f0f; /* Dark background */
+  color: #eaeaea;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.container{
-  background-color: #FFF;
-  padding: 32px 48px;
-  border-radius: 10px;
+/* Container */
+.container {
+  background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+  padding: 40px 50px;
+  border-radius: 15px;
   width: 100%;
-  max-width: 400px;
-  box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+  max-width: 420px;
+  box-shadow: 0 0 20px rgba(138, 43, 226, 0.4);
+  transition: all 0.3s ease;
 }
 
-.container > h1{
-  margin-bottom: 20px;
+.container:hover {
+  box-shadow: 0 0 30px rgba(138, 43, 226, 0.7);
 }
 
-.container > form{
+/* Heading */
+.container > h1 {
+  text-align: center;
+  color: #9d4edd; /* Light purple accent */
+  margin-bottom: 25px;
+  letter-spacing: 1px;
+}
+
+/* Form */
+.container > form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
 }
-.container div{
+
+.container div {
   display: flex;
   flex-direction: column;
 }
 
-.container input{
+/* Input Fields */
+.container input {
   width: 100%;
-  font-size: 20px;
-  padding: 10px;
+  font-size: 18px;
+  padding: 12px;
   border: none;
   outline: none;
-  border-bottom: 1px solid black;
+  background-color: transparent;
+  border-bottom: 2px solid #444;
+  color: #fff;
+  transition: border-color 0.3s ease;
 }
 
-.container input::placeholder{
-  font-size: 12px;
+.container input:focus {
+  border-bottom-color: #9d4edd;
+}
+
+.container input::placeholder {
+  font-size: 13px;
+  color: #888;
   font-style: italic;
 }
 
-button{
-  background-color: purple;
+/* Button */
+button {
+  background: linear-gradient(90deg, #7b2cbf, #9d4edd);
   border: none;
-  font-size: 20px;
+  font-size: 18px;
   color: white;
-  border-radius: 5px;
-  padding: 10px;
+  border-radius: 8px;
+  padding: 12px;
   cursor: pointer;
-  margin: 10px 0;
+  margin-top: 15px;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: linear-gradient(90deg, #9d4edd, #7b2cbf);
+  transform: scale(1.03);
+  box-shadow: 0 0 15px rgba(157, 78, 221, 0.6);
+}
+
+/* Label */
+label {
+  font-size: 16px;
+  margin-bottom: 5px;
+  color: #cfcfcf;
 }
