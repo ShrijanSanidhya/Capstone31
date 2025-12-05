@@ -1,156 +1,190 @@
-/* PAGE CONTAINER */
+/* -----------------------------------------------------
+   DASHBOARD PAGE — PREMIUM UI REDESIGN
+------------------------------------------------------ */
+
+/* Whole Page */
 .dash-container {
+    font-family: "Inter", sans-serif;
     width: 100%;
     min-height: 100vh;
-    background: #f5f7fb;
-    font-family: "Inter", sans-serif;
+    background: #f5f7fa;
 }
 
-/* HERO SECTION */
+/* -----------------------------------------------------
+   HERO SECTION
+------------------------------------------------------ */
 .dash-hero {
-    height: 320px;
-    background-image: url("https://i.pinimg.com/1200x/bb/4b/2c/bb4b2cc1c6714f3fa3403c7f71136eea.jpg");
-    background-size: cover;
-    background-position: center;
     position: relative;
+    width: 100%;
+    height: 260px;
+    background: url("https://i.pinimg.com/1200x/ef/3c/81/ef3c8175242b7cb1368be14fe7d619a1.jpg") center/cover no-repeat;
+    border-bottom-left-radius: 22px;
+    border-bottom-right-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.18);
 }
 
 .dash-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.55);
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(2px);
 }
 
 .dash-hero-content {
     position: relative;
+    z-index: 10;
+    color: #fff;
     text-align: center;
-    color: white;
-    padding-top: 70px;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .dash-hero-content h1 {
-    font-size: 48px;
+    font-size: 36px;
     font-weight: 800;
+    margin-bottom: 8px;
 }
 
 .dash-hero-content p {
-    opacity: 0.8;
-    font-size: 18px;
-    margin-bottom: 25px;
+    font-size: 16px;
+    opacity: 0.9;
+    margin-bottom: 18px;
 }
 
+/* NEW TRIP BUTTON */
 .dash-add-btn {
     display: inline-flex;
     align-items: center;
-    background: white;
-    color: #5a3eff;
-    padding: 12px 25px;
-    border-radius: 12px;
-    font-weight: 700;
-    gap: 10px;
-    cursor: pointer;
+    gap: 8px;
+    padding: 10px 18px;
+    background: #4f46e5;
+    color: white;
+    font-weight: 600;
+    border-radius: 10px;
     border: none;
-    transition: 0.3s;
+    cursor: pointer;
+    transition: 0.25s;
 }
 
 .dash-add-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(90, 62, 255, 0.3);
+    background: #3d37c9;
 }
 
-/* FILTERS */
+/* -----------------------------------------------------
+   FILTERS BAR
+------------------------------------------------------ */
 .dash-filters-container {
     margin-top: -40px;
-    padding: 0 30px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    z-index: 50;
 }
 
 .dash-filters {
     background: white;
-    padding: 18px 20px;
+    padding: 18px;
     border-radius: 14px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+    width: 92%;
+    max-width: 1100px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
     display: flex;
-    gap: 15px;
-    justify-content: center;
-    flex-wrap: wrap;
+    gap: 18px;
+    align-items: center;
 }
 
 .dash-input-box {
-    position: relative;
+    flex: 1;
+    background: #f2f3f5;
+    border-radius: 10px;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.dash-input-icon {
+    color: #555;
 }
 
 .dash-input-box input,
 .dash-input-box select {
-    width: 240px;
-    padding: 12px 14px 12px 40px;
-    border-radius: 10px;
-    border: 1px solid #ddd;
-    font-size: 15px;
+    width: 100%;
+    background: transparent;
+    border: none;
     outline: none;
+    font-size: 15px;
 }
 
-.dash-input-icon {
-    position: absolute;
-    left: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #777;
-}
-
-/* TRIP GRID */
+/* -----------------------------------------------------
+   TRIPS LISTING
+------------------------------------------------------ */
 .dash-results {
-    padding: 50px 30px;
+    padding: 35px 40px;
 }
 
 .dash-results-count {
-    margin-bottom: 20px;
     font-size: 18px;
-    color: #444;
+    margin-bottom: 20px;
+    font-weight: 600;
 }
 
 .dash-results-count span {
-    color: #5a3eff;
-    font-weight: 700;
+    color: #4f46e5;
 }
 
 .dash-grid {
     display: grid;
-    gap: 20px;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 22px;
 }
 
-/* EMPTY STATE */
+/* -----------------------------------------------------
+   EMPTY STATE
+------------------------------------------------------ */
 .dash-empty {
     text-align: center;
-    margin-top: 60px;
-    color: #666;
-}
-
-.dash-empty svg {
-    margin-bottom: 20px;
-    color: #9c9c9c;
+    color: #555;
+    margin-top: 40px;
 }
 
 .dash-empty h3 {
-    font-size: 26px;
+    font-size: 22px;
     font-weight: 700;
+    margin-top: 12px;
 }
 
 .dash-empty p {
-    margin-bottom: 25px;
+    margin-bottom: 16px;
 }
 
 .dash-primary-btn {
-    background: #5a3eff;
-    color: white;
-    padding: 12px 30px;
-    border-radius: 10px;
-    font-size: 16px;
+    padding: 10px 18px;
     border: none;
+    background: #4f46e5;
+    color: white;
+    border-radius: 10px;
     font-weight: 600;
     cursor: pointer;
+    transition: 0.25s;
 }
 
 .dash-primary-btn:hover {
-    background: #4a32d6;
+    background: #3b33c4;
+}
+
+/* -----------------------------------------------------
+   RESPONSIVE FIXES
+------------------------------------------------------ */
+@media (max-width: 768px) {
+    .dash-filters {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .dash-results {
+        padding: 20px;
+    }
 }

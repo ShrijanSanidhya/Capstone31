@@ -28,14 +28,23 @@ const ReviewList = ({ reviews, onReviewUpdated, onReviewDeleted }) => {
 
     if (reviews.length === 0) {
         return (
-            <div className="text-center py-8 text-gray-500">
-                <p>No reviews yet. Be the first to review this trip!</p>
+            <div style={{
+                textAlign: 'center',
+                padding: '40px 20px',
+                background: '#f8fafc',
+                borderRadius: '12px',
+                border: '2px dashed #cbd5e1'
+            }}>
+                <Star size={40} color="#94a3b8" style={{ margin: '0 auto 16px' }} />
+                <p style={{ color: '#64748b', fontSize: '15px', fontWeight: '500' }}>
+                    No reviews yet. Be the first to review this trip!
+                </p>
             </div>
         );
     }
 
     return (
-        <div className="space-y-4">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             {reviews.map((review) => (
                 <div key={review._id}>
                     {editingReview?._id === review._id ? (
@@ -46,57 +55,159 @@ const ReviewList = ({ reviews, onReviewUpdated, onReviewDeleted }) => {
                             onCancel={() => setEditingReview(null)}
                         />
                     ) : (
-                        <div className="bg-white rounded-lg p-6 shadow-md">
-                            <div className="flex items-start justify-between mb-3">
-                                <div className="flex items-center space-x-3">
-                                    <div className="flex items-center justify-center w-10 h-10 bg-indigo-100 rounded-full">
-                                        <User className="h-5 w-5 text-indigo-600" />
+                        <div style={{
+                            background: 'white',
+                            borderRadius: '14px',
+                            padding: '20px',
+                            border: '1px solid #e2e8f0',
+                            boxShadow: '0 2px 12px rgba(0, 0, 0, 0.04)',
+                            transition: 'all 0.2s'
+                        }}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.08)';
+                                e.currentTarget.style.transform = 'translateY(-2px)';
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.boxShadow = '0 2px 12px rgba(0, 0, 0, 0.04)';
+                                e.currentTarget.style.transform = 'translateY(0)';
+                            }}
+                        >
+                            {/* Header */}
+                            <div style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'flex-start',
+                                marginBottom: '14px'
+                            }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                                    {/* Avatar */}
+                                    <div style={{
+                                        width: '44px',
+                                        height: '44px',
+                                        borderRadius: '50%',
+                                        background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        boxShadow: '0 4px 12px rgba(99, 102, 241, 0.3)'
+                                    }}>
+                                        <User size={20} color="white" strokeWidth={2.5} />
                                     </div>
+
+                                    {/* User Info */}
                                     <div>
-                                        <p className="font-semibold text-gray-900">{review.user?.name}</p>
-                                        <p className="text-sm text-gray-500">
+                                        <p style={{
+                                            fontWeight: '600',
+                                            color: '#1e293b',
+                                            fontSize: '15px',
+                                            margin: 0
+                                        }}>
+                                            {review.user?.name}
+                                        </p>
+                                        <p style={{
+                                            fontSize: '13px',
+                                            color: '#94a3b8',
+                                            margin: '2px 0 0 0'
+                                        }}>
                                             {format(new Date(review.createdAt), 'MMM d, yyyy')}
                                         </p>
                                     </div>
                                 </div>
 
-                                {/* Edit/Delete buttons for own reviews */}
+                                {/* Action Buttons */}
                                 {user && review.user?._id === user.id && (
-                                    <div className="flex items-center space-x-2">
+                                    <div style={{ display: 'flex', gap: '6px' }}>
                                         <button
                                             onClick={() => setEditingReview(review)}
-                                            className="p-2 text-gray-600 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors"
+                                            style={{
+                                                padding: '8px',
+                                                borderRadius: '8px',
+                                                border: 'none',
+                                                background: '#f8fafc',
+                                                color: '#64748b',
+                                                cursor: 'pointer',
+                                                transition: 'all 0.2s',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center'
+                                            }}
+                                            onMouseEnter={(e) => {
+                                                e.currentTarget.style.background = '#eef2ff';
+                                                e.currentTarget.style.color = '#6366f1';
+                                            }}
+                                            onMouseLeave={(e) => {
+                                                e.currentTarget.style.background = '#f8fafc';
+                                                e.currentTarget.style.color = '#64748b';
+                                            }}
                                         >
-                                            <Edit2 className="h-4 w-4" />
+                                            <Edit2 size={16} />
                                         </button>
                                         <button
                                             onClick={() => handleDelete(review._id)}
-                                            className="p-2 text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                                            style={{
+                                                padding: '8px',
+                                                borderRadius: '8px',
+                                                border: 'none',
+                                                background: '#f8fafc',
+                                                color: '#64748b',
+                                                cursor: 'pointer',
+                                                transition: 'all 0.2s',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center'
+                                            }}
+                                            onMouseEnter={(e) => {
+                                                e.currentTarget.style.background = '#fef2f2';
+                                                e.currentTarget.style.color = '#dc2626';
+                                            }}
+                                            onMouseLeave={(e) => {
+                                                e.currentTarget.style.background = '#f8fafc';
+                                                e.currentTarget.style.color = '#64748b';
+                                            }}
                                         >
-                                            <Trash2 className="h-4 w-4" />
+                                            <Trash2 size={16} />
                                         </button>
                                     </div>
                                 )}
                             </div>
 
                             {/* Star Rating */}
-                            <div className="flex items-center space-x-1 mb-3">
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '4px',
+                                marginBottom: '12px'
+                            }}>
                                 {[1, 2, 3, 4, 5].map((star) => (
                                     <Star
                                         key={star}
-                                        className={`h-5 w-5 ${star <= review.rating
-                                                ? 'fill-yellow-400 text-yellow-400'
-                                                : 'text-gray-300'
-                                            }`}
+                                        size={18}
+                                        color={star <= review.rating ? '#fbbf24' : '#cbd5e1'}
+                                        fill={star <= review.rating ? '#fbbf24' : 'none'}
                                     />
                                 ))}
-                                <span className="ml-2 text-sm font-medium text-gray-700">
+                                <span style={{
+                                    marginLeft: '8px',
+                                    fontSize: '14px',
+                                    fontWeight: '600',
+                                    color: '#475569',
+                                    background: '#f8fafc',
+                                    padding: '2px 8px',
+                                    borderRadius: '6px'
+                                }}>
                                     {review.rating}/5
                                 </span>
                             </div>
 
                             {/* Comment */}
-                            <p className="text-gray-700 leading-relaxed">{review.comment}</p>
+                            <p style={{
+                                color: '#475569',
+                                lineHeight: '1.6',
+                                fontSize: '15px',
+                                margin: 0
+                            }}>
+                                {review.comment}
+                            </p>
                         </div>
                     )}
                 </div>

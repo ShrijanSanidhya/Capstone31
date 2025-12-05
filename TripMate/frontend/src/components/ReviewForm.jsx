@@ -16,16 +16,13 @@ const ReviewForm = ({ tripId, onReviewAdded, existingReview = null, onCancel }) 
 
         try {
             if (existingReview) {
-                // Update existing review
                 const { data } = await api.put(`/reviews/${existingReview._id}`, { rating, comment });
                 onReviewAdded(data);
             } else {
-                // Create new review
                 const { data } = await api.post('/reviews', { tripId, rating, comment });
                 onReviewAdded(data);
             }
 
-            // Reset form
             setRating(0);
             setComment('');
         } catch (err) {
@@ -36,21 +33,56 @@ const ReviewForm = ({ tripId, onReviewAdded, existingReview = null, onCancel }) 
     };
 
     return (
-        <form onSubmit={handleSubmit} className="bg-white rounded-lg p-6 shadow-md">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">
+        <form
+            onSubmit={handleSubmit}
+            style={{
+                background: 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)',
+                borderRadius: '14px',
+                padding: '24px',
+                border: '1px solid #e2e8f0',
+                boxShadow: '0 4px 20px rgba(0, 0, 0, 0.06)',
+                marginBottom: '20px'
+            }}
+        >
+            <h3 style={{
+                fontSize: '18px',
+                fontWeight: '700',
+                color: '#1e293b',
+                marginBottom: '20px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px'
+            }}>
+                <Star size={20} color="#6366f1" fill="#6366f1" />
                 {existingReview ? 'Edit Your Review' : 'Write a Review'}
             </h3>
 
             {error && (
-                <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4">
+                <div style={{
+                    background: '#fef2f2',
+                    border: '1px solid #fecaca',
+                    color: '#dc2626',
+                    padding: '12px 16px',
+                    borderRadius: '10px',
+                    marginBottom: '16px',
+                    fontSize: '14px'
+                }}>
                     {error}
                 </div>
             )}
 
             {/* Star Rating */}
-            <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-2">Rating</label>
-                <div className="flex items-center space-x-1">
+            <div style={{ marginBottom: '20px' }}>
+                <label style={{
+                    display: 'block',
+                    fontSize: '14px',
+                    fontWeight: '600',
+                    color: '#475569',
+                    marginBottom: '10px'
+                }}>
+                    Rating
+                </label>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     {[1, 2, 3, 4, 5].map((star) => (
                         <button
                             key={star}
@@ -58,41 +90,106 @@ const ReviewForm = ({ tripId, onReviewAdded, existingReview = null, onCancel }) 
                             onClick={() => setRating(star)}
                             onMouseEnter={() => setHoveredRating(star)}
                             onMouseLeave={() => setHoveredRating(0)}
-                            className="focus:outline-none transition-transform hover:scale-110"
+                            style={{
+                                background: 'none',
+                                border: 'none',
+                                cursor: 'pointer',
+                                padding: '4px',
+                                transition: 'transform 0.2s',
+                                outline: 'none'
+                            }}
+                            onMouseDown={(e) => e.currentTarget.style.transform = 'scale(0.9)'}
+                            onMouseUp={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
                         >
                             <Star
-                                className={`h-8 w-8 ${star <= (hoveredRating || rating)
-                                        ? 'fill-yellow-400 text-yellow-400'
-                                        : 'text-gray-300'
-                                    }`}
+                                size={32}
+                                color={star <= (hoveredRating || rating) ? '#fbbf24' : '#cbd5e1'}
+                                fill={star <= (hoveredRating || rating) ? '#fbbf24' : 'none'}
+                                style={{ transition: 'all 0.2s' }}
                             />
                         </button>
                     ))}
-                    <span className="ml-2 text-sm text-gray-600">
+                    <span style={{
+                        marginLeft: '8px',
+                        fontSize: '14px',
+                        color: '#64748b',
+                        fontWeight: '500'
+                    }}>
                         {rating > 0 ? `${rating} star${rating > 1 ? 's' : ''}` : 'Select rating'}
                     </span>
                 </div>
             </div>
 
             {/* Comment */}
-            <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-2">Comment</label>
+            <div style={{ marginBottom: '20px' }}>
+                <label style={{
+                    display: 'block',
+                    fontSize: '14px',
+                    fontWeight: '600',
+                    color: '#475569',
+                    marginBottom: '10px'
+                }}>
+                    Your Experience
+                </label>
                 <textarea
                     value={comment}
                     onChange={(e) => setComment(e.target.value)}
                     required
                     rows="4"
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                    placeholder="Share your experience..."
+                    placeholder="Share your experience with this trip..."
+                    style={{
+                        width: '100%',
+                        padding: '12px 16px',
+                        border: '2px solid #e2e8f0',
+                        borderRadius: '10px',
+                        fontSize: '15px',
+                        outline: 'none',
+                        transition: 'all 0.2s',
+                        fontFamily: 'inherit',
+                        resize: 'vertical',
+                        background: 'white'
+                    }}
+                    onFocus={(e) => {
+                        e.currentTarget.style.borderColor = '#6366f1';
+                        e.currentTarget.style.boxShadow = '0 0 0 3px rgba(99, 102, 241, 0.1)';
+                    }}
+                    onBlur={(e) => {
+                        e.currentTarget.style.borderColor = '#e2e8f0';
+                        e.currentTarget.style.boxShadow = 'none';
+                    }}
                 />
             </div>
 
             {/* Buttons */}
-            <div className="flex items-center space-x-3">
+            <div style={{ display: 'flex', gap: '12px' }}>
                 <button
                     type="submit"
                     disabled={loading || rating === 0}
-                    className="flex-1 bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+                    style={{
+                        flex: 1,
+                        background: loading || rating === 0
+                            ? '#cbd5e1'
+                            : 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
+                        color: 'white',
+                        padding: '12px 24px',
+                        borderRadius: '10px',
+                        fontSize: '15px',
+                        fontWeight: '600',
+                        border: 'none',
+                        cursor: loading || rating === 0 ? 'not-allowed' : 'pointer',
+                        transition: 'all 0.2s',
+                        boxShadow: loading || rating === 0 ? 'none' : '0 4px 12px rgba(99, 102, 241, 0.3)'
+                    }}
+                    onMouseEnter={(e) => {
+                        if (!loading && rating > 0) {
+                            e.currentTarget.style.transform = 'translateY(-2px)';
+                            e.currentTarget.style.boxShadow = '0 6px 16px rgba(99, 102, 241, 0.4)';
+                        }
+                    }}
+                    onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = 'translateY(0)';
+                        e.currentTarget.style.boxShadow = loading || rating === 0 ? 'none' : '0 4px 12px rgba(99, 102, 241, 0.3)';
+                    }}
                 >
                     {loading ? 'Submitting...' : existingReview ? 'Update Review' : 'Submit Review'}
                 </button>
@@ -100,7 +197,25 @@ const ReviewForm = ({ tripId, onReviewAdded, existingReview = null, onCancel }) 
                     <button
                         type="button"
                         onClick={onCancel}
-                        className="px-6 py-3 rounded-lg font-semibold text-gray-700 hover:bg-gray-100 transition-colors"
+                        style={{
+                            padding: '12px 24px',
+                            borderRadius: '10px',
+                            fontSize: '15px',
+                            fontWeight: '600',
+                            color: '#64748b',
+                            background: 'white',
+                            border: '2px solid #e2e8f0',
+                            cursor: 'pointer',
+                            transition: 'all 0.2s'
+                        }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.background = '#f8fafc';
+                            e.currentTarget.style.borderColor = '#cbd5e1';
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.background = 'white';
+                            e.currentTarget.style.borderColor = '#e2e8f0';
+                        }}
                     >
                         Cancel
                     </button>
